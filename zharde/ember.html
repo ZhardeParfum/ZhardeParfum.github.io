@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zharde Ember | Extrait de Parfum | Zharde Parfum</title><meta name="description" content="Zharde Ember Extrait de Parfum. Extrait de Parfum."><meta name="robots" content="index, follow"><link rel="canonical" href="https://zhardeparfum.github.io/zharde/ember.html">
+<meta property="og:title" content="Zharde Ember | Extrait de Parfum | Zharde Parfum"><meta property="og:description" content="Zharde Ember Extrait de Parfum. Extrait de Parfum."><meta property="og:url" content="https://zhardeparfum.github.io/zharde/ember.html"><meta property="og:type" content="website"><meta name="theme-color" content="#16261f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Zharde Ember Extrait de Parfum","brand":{"@type":"Brand","name":"Zharde Parfum"},"description":"Zharde Ember Extrait de Parfum. Extrait de Parfum.","offers":{"@type":"AggregateOffer","priceCurrency":"MYR","lowPrice":"12","highPrice":"100","offerCount":"3"}}</script></head>
+<body style="--accent:#e0662a"><header class="top"><nav class="wrap" aria-label="Main menu"><a class="logo" href="../index.html">Zhardé</a><ul><li><a href="../index.html">Home</a></li><li><a href="../shop.html">Shop</a></li></ul></nav></header>
+<main class="wrap detail"><div class="visual"><div class="pic"><i class="bg" style="background-image:url(../images/ember.jpg)"></i><svg class="bottle" viewBox="0 0 200 320" aria-hidden="true"><rect x="80" y="10" width="40" height="46" rx="4" fill="#e0662a"/><rect x="90" y="56" width="20" height="22" fill="#e0662a" opacity=".7"/><rect x="30" y="78" width="140" height="230" rx="18" fill="#22402f" stroke="#e0662a" stroke-width="3"/><rect x="46" y="96" width="14" height="190" rx="7" fill="#fff" opacity=".12"/><rect x="62" y="170" width="80" height="70" fill="none" stroke="#e0662a" stroke-width="1.5"/><text x="102" y="210" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#edf0ea">Zhardé</text><text x="102" y="228" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#e0662a">Ember</text></svg><img src="../images/ember.jpg" alt="Zharde Ember Extrait de Parfum" loading="lazy" onerror="this.remove()"></div></div>
+<div><p class="crumb"><a href="../shop.html">Shop</a> / Ember</p><h1>Ember</h1><p class="tag">Extrait de Parfum</p>
+<div class="pyramid"><h2>Fragrance Notes</h2><p class="lead">Fragrance notes coming soon.</p></div>
+<form class="order" onsubmit="return false"><h2>Select size</h2><div class="sizes"><label class="size"><input type="radio" name="size" value="10 ml" data-price="12"><span>10 ml<small>RM12</small></span></label><label class="size"><input type="radio" name="size" value="30 ml" data-price="35" checked><span>30 ml<small>RM35</small></span></label><label class="size"><input type="radio" name="size" value="100 ml" data-price="100"><span>100 ml<small>RM100</small></span></label></div>
+<h2>Quantity</h2><div class="qty"><button type="button" id="m" aria-label="Decrease">−</button><input id="q" type="number" min="1" max="99" value="1" aria-label="Quantity"><button type="button" id="p" aria-label="Increase">+</button></div>
+<p class="total">Total <strong id="t">RM0</strong></p>
+<a class="btn" id="buy" href="#" rel="noopener">BUY</a></form></div></main>
+<script>
+(function(){
+var NAME="Ember",WA="601165526640",q=document.getElementById("q"),b=document.getElementById("buy"),t=document.getElementById("t");
+function u(){var n=Math.max(1,Math.min(99,parseInt(q.value)||1));q.value=n;
+var r=document.querySelector('input[name=size]:checked'),s=r.value,tot=n*parseFloat(r.dataset.price);
+t.textContent="RM"+tot;
+var m="Hai Zharde, saya nak order:\nVarian: "+NAME+"\nSaiz: "+s+"\nKuantiti: "+n+"\nJumlah: RM"+tot;
+b.href="https://wa.me/"+WA+"?text="+encodeURIComponent(m);}
+document.getElementById("m").onclick=function(){q.value=(parseInt(q.value)||1)-1;u()};
+document.getElementById("p").onclick=function(){q.value=(parseInt(q.value)||1)+1;u()};
+q.oninput=u;document.querySelectorAll('input[name=size]').forEach(function(r){r.onchange=u});u();
+})();
+</script><footer><div class="wrap">© 2026 ZHARDÉ PARFUM. All rights reserved.</div></footer></body></html>

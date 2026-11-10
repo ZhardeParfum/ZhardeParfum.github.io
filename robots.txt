@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zhardeparfum.github.io/sitemap.xml
