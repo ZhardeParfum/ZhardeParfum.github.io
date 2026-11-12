@@ -1,3 +1,2 @@
 Gambar sedia ada: bombshell, dulcette, elysian, sovereign (.jpg)
-Tambah: ember.jpg, solace.jpg, azure.jpg (nama tepat, huruf kecil)
-Cadangan: gambar botol Zharde sahaja, tinggi lebih daripada lebar, kurang 300 KB.
+Tambah: ember.jpg, solace.jpg, azure.jpg dan logo.png (logo Zharde, latar lutsinar) dengan nama tepat, huruf kecil.
