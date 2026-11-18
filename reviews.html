@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Reviews | Zharde Parfum</title><meta name="description" content="Write a review or read what customers say about ZHARDÉ perfumes: longevity, projection and overall ratings."><meta name="robots" content="index, follow"><link rel="canonical" href="https://zhardeparfum.github.io/reviews.html">
+<meta property="og:title" content="Customer Reviews | Zharde Parfum"><meta property="og:description" content="Write a review or read what customers say about ZHARDÉ perfumes: longevity, projection and overall ratings."><meta property="og:url" content="https://zhardeparfum.github.io/reviews.html"><meta property="og:type" content="website"><meta name="theme-color" content="#16261f"><meta property="og:image" content="https://zhardeparfum.github.io/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo-sm.png"><link rel="stylesheet" href="style.css"><script src="cart.js" defer></script><script src="reviews-config.js"></script><script src="reviews.js" defer></script></head>
+<body><header class="top"><nav class="wrap" aria-label="Main menu"><a class="logo" href="index.html"><img src="images/logo-sm.png" alt="" width="38" height="38">Zhardé</a><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="perfumes.html">Perfumes</a></li><li><a href="notes.html">Notes</a></li><li><a href="reviews.html" aria-current="page">Reviews</a></li></ul><button class="cartbtn" type="button" aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Cart</span><b class="cb" hidden>0</b></button></nav></header><main class="wrap reviews"><h1>Reviews</h1>
+<p class="lead">Tell us how your ZHARDÉ perfume wears: how long it lasts, how far it travels, and how much you love it. Your review appears here and on the Perfumes page right away.</p>
+<p><a class="more" href="#reviews">Read customer reviews &darr;</a></p>
+<section class="rvform" id="write"><h2>Write a review</h2><div class="orn" aria-hidden="true"><i></i></div>
+<div class="rvnote" id="rv-config" hidden>Reviews are not open yet. This form will work as soon as the review service is connected.</div>
+<form id="rv-form" novalidate autocomplete="off">
+<p class="hint">Your name and comment will be shown publicly right away. A nickname is fine. Please do not include links.</p>
+<label class="fld">Your name<input id="rv-name" type="text" maxlength="40" required></label>
+<label class="fld">Your comment<textarea id="rv-comment" maxlength="600" rows="5" required placeholder="How does it smell, how long does it last, when do you wear it?"></textarea><small id="rv-count">0 / 600</small></label>
+<h3>What did you buy?</h3>
+<p class="hint">Add each perfume you bought. If you bought three different perfumes, add three.</p>
+<div id="rv-rows"></div>
+<button type="button" id="rv-add" class="btn ghost">+ Add another perfume</button>
+<div class="hp" aria-hidden="true"><label>Website<input id="rv-hp" type="text" tabindex="-1" autocomplete="off"></label></div>
+<p id="rv-err" class="rverr" role="alert" hidden></p>
+<div><button class="btn" id="rv-submit" type="submit">Submit review</button></div>
+</form>
+<div id="rv-thanks" class="rvthanks" hidden><h3>Thank you!</h3><p>Your review has been sent and will appear below and on the Perfumes page.</p><a class="btn" href="#reviews">See reviews</a> <button type="button" id="rv-again" class="btn ghost">Write another review</button></div>
+</section>
+<section id="reviews"><h2 class="sec">What customers say</h2><div class="orn" aria-hidden="true"><i></i></div>
+<div id="rv-summary" class="rvsum" hidden></div>
+<div id="rv-filter" class="nfilter" role="group" aria-label="Filter reviews by perfume" hidden></div>
+<p id="rv-state" class="lead" role="status">Loading reviews...</p>
+<div id="rv-list" class="rvlist"></div>
+<button type="button" id="rv-more" class="btn ghost" hidden>Show more reviews</button></section>
+</main><footer><div class="wrap"><p>© 2026 ZHARDÉ PARFUM. All rights reserved.</p><p class="regline">ZHARDE PARFUM SIGNATURE &middot; SSM No. 202603303467 (KT0625165-P) &middot; <a href="index.html#ssm">Business registration</a></p></div></footer></body></html>
