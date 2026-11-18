@@ -62,9 +62,39 @@ function renderPerfumes(){document.querySelectorAll(".prev[data-slug]").forEach(
  if(!s.n){var p=el("p","rvempty","No reviews yet. ");var a=el("a",null,"Be the first to review");a.href="reviews.html#write";p.appendChild(a);box.appendChild(p);box.hidden=false;return}
  var sum=el("div","prsum");sum.appendChild(el("b","rvbig2",f1(s.o)));sum.appendChild(starsEl(s.o));sum.appendChild(el("span","rvsmall",s.reviews+(s.reviews===1?" review":" reviews")));box.appendChild(sum);
  var m=el("div","rvmeters");[["Longevity",s.l],["Projection",s.p]].forEach(function(x){var r=el("div","rvm");r.appendChild(el("span","rvl",x[0]));r.appendChild(meter(x[1],x[0]));r.appendChild(el("b",null,f1(x[1])+"/10"));m.appendChild(r)});box.appendChild(m);
- var rows=ALL.filter(function(r){return r.items.some(function(i){return i.slug===slug})}).slice(0,3);
- rows.forEach(function(r){var c=card(r,slug);c.classList.add("rvmini");box.appendChild(c)});
- var l=el("a","more","Read all reviews");l.href="reviews.html#"+slug;box.appendChild(l);box.hidden=false})}
+ var rows=ALL.filter(function(r){return r.items.some(function(i){return i.slug===slug})});
+ box.appendChild(carousel(rows.slice(0,CAR_MAX),slug,rows.length));box.hidden=false})}
+
+/* ---------- perfumes page: one-review carousel ---------- */
+var CAR_MAX=5;
+function carousel(rows,slug,total){
+ var n=rows.length,idx=0,name=(byName&&CFG.variants.filter(function(v){return v.slug===slug})[0]||{}).name||"Perfume";
+ var wrap=el("div","rcar");wrap.setAttribute("role","region");wrap.setAttribute("aria-roledescription","carousel");wrap.setAttribute("aria-label",name+" customer reviews");
+ var view=el("div","rcar-view");view.tabIndex=0;var track=el("div","rcar-track");view.appendChild(track);
+ var slides=rows.map(function(r,k){var s=el("div","rcar-slide");s.setAttribute("role","group");s.setAttribute("aria-roledescription","slide");s.setAttribute("aria-label","Review "+(k+1)+" of "+n);
+  var c=card(r,slug);c.classList.add("rvmini");s.appendChild(c);track.appendChild(s);return s});
+ wrap.appendChild(view);
+ var more=el("a","btn ghost rcar-more","More reviews");more.href="reviews.html#"+slug;more.hidden=true;
+ var prev,next,count;
+ if(n>1){var foot=el("div","rcar-foot");
+  prev=el("button","rcar-btn","\u2039");prev.type="button";prev.setAttribute("aria-label","Previous review");
+  next=el("button","rcar-btn","\u203A");next.type="button";next.setAttribute("aria-label","Next review");
+  count=el("span","rcar-count","");count.setAttribute("aria-live","polite");
+  foot.appendChild(prev);foot.appendChild(count);foot.appendChild(next);wrap.appendChild(foot)}
+ wrap.appendChild(more);
+ function fit(){var hh=slides[idx].offsetHeight;view.style.height=hh?hh+"px":"auto"}
+ function go(i){idx=Math.max(0,Math.min(n-1,i));track.style.transform="translateX(-"+(idx*100)+"%)";
+  slides.forEach(function(s,k){s.setAttribute("aria-hidden",String(k!==idx))});
+  if(prev){prev.disabled=idx===0;next.disabled=idx===n-1;count.textContent=(idx+1)+" / "+n}
+  more.hidden=!(idx===n-1&&total>n);fit()}
+ if(prev){prev.onclick=function(){go(idx-1)};next.onclick=function(){go(idx+1)}}
+ view.addEventListener("keydown",function(e){if(e.key==="ArrowLeft"){go(idx-1);e.preventDefault()}else if(e.key==="ArrowRight"){go(idx+1);e.preventDefault()}});
+ var x0=null,y0=0;
+ view.addEventListener("touchstart",function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+ view.addEventListener("touchend",function(e){if(x0===null)return;var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.5)go(idx+(dx<0?1:-1))},{passive:true});
+ if(window.ResizeObserver){var ro=new ResizeObserver(fit);slides.forEach(function(s){ro.observe(s)})}
+ window.addEventListener("resize",fit);window.addEventListener("load",fit);
+ go(0);return wrap}
 
 /* ---------- form ---------- */
 var rowN=0;
@@ -108,6 +138,12 @@ function collect(){var name=$("rv-name").value.replace(/\s+/g," ").trim(),commen
  return{name:name.slice(0,40),comment:comment.slice(0,600),items:items,website:$("rv-hp").value,t:Date.now()-t0}}
 function resetForm(){$("rv-name").value="";$("rv-comment").value="";$("rv-count").textContent="0 / 600";$("rv-rows").textContent="";rowN=0;addRow()}
 function initForm(){var f=$("rv-form");if(!f)return;
+ var sec=$("write"),ob=$("rv-open");
+ function openForm(show,go){sec.hidden=!show;if(ob)ob.setAttribute("aria-expanded",String(show));
+  if(show&&go){sec.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(function(){if(!f.hidden)$("rv-name").focus({preventScroll:true})},400)}}
+ if(ob)ob.onclick=function(){openForm(sec.hidden,true)};
+ if(location.hash==="#write")openForm(true,true);
+ window.addEventListener("hashchange",function(){if(location.hash==="#write")openForm(true,true)});
  if(!URL){$("rv-config").hidden=false;$("rv-submit").disabled=true}
  addRow();$("rv-add").onclick=addRow;
  $("rv-comment").addEventListener("input",function(){$("rv-count").textContent=this.value.length+" / 600"});

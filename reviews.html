@@ -4,7 +4,7 @@
 <meta property="og:title" content="Customer Reviews | Zharde Parfum"><meta property="og:description" content="Write a review or read what customers say about ZHARDÉ perfumes: longevity, projection and overall ratings."><meta property="og:url" content="https://zhardeparfum.github.io/reviews.html"><meta property="og:type" content="website"><meta name="theme-color" content="#16261f"><meta property="og:image" content="https://zhardeparfum.github.io/images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="images/logo-sm.png"><link rel="stylesheet" href="style.css?v=20261118"><style id="rv-css">/* ---- reviews ---- */
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="style.css?v=20261118c"><style id="rv-css">/* ---- reviews ---- */
 .reviews{padding-top:3.5rem;padding-bottom:5rem}.reviews h1{font-size:clamp(2.5rem,7vw,4.5rem)}.reviews .lead{margin-top:.6rem}
 .rvform{margin-top:2rem;background:rgba(255,255,255,.55);border:1px solid #dccaa0;border-radius:10px;padding:1.75rem}
 .rvform h2{font-size:2rem;margin-top:0}
@@ -56,11 +56,31 @@
 .prsum{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}.rvbig2{font-family:var(--serif);font-size:2rem}
 .rvmini{margin-top:1rem;padding:1rem 1.1rem}.rvmini .rvtext{font-size:.95rem}.rvempty a{font-weight:500}
 @media (max-width:640px){.rgrid{grid-template-columns:1fr 1fr}.rgrid>.fld:first-child{grid-column:1/-1}.rvsum{grid-template-columns:1fr;gap:1rem}.rvform{padding:1.2rem}.rvm{grid-template-columns:4.8rem 1fr 3.2rem}.pills span{width:2.1rem;height:2.1rem}}
-</style><script src="cart.js?v=20261118" defer></script><script src="reviews-config.js?v=20261118b"></script><script src="reviews.js?v=20261118" defer></script></head>
+
+
+/* ---- review carousel + collapsible form ---- */
+.rvact{display:flex;align-items:center;gap:.8rem 1.6rem;flex-wrap:wrap;margin:1.3rem 0 1.4rem}.rvact .more{margin:0}
+#rv-open{cursor:pointer;border:0;font:inherit;font-weight:500;letter-spacing:.05em}
+#rv-open::after{content:"";display:inline-block;width:.45em;height:.45em;margin-left:.75em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-.18em) rotate(45deg);transition:transform .2s}
+#rv-open[aria-expanded="true"]::after{transform:translateY(.1em) rotate(-135deg)}
+.rvform[hidden]{display:none}
+.rcar{margin-top:1rem;width:100%;max-width:100%;min-width:0;contain:inline-size}
+.rcar-view{overflow:hidden;transition:height .3s ease;border-radius:10px}.rcar-view:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.rcar-track{display:flex;align-items:flex-start;transition:transform .35s ease}
+.rcar-slide{flex:0 0 100%;min-width:0}
+.rcar .rvmini{margin:0}
+.rcar-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:.8rem}
+.rcar-btn{width:2.75rem;height:2.75rem;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:1.6rem;line-height:1;padding:0 0 .15rem;cursor:pointer;font-family:var(--sans)}
+.rcar-btn:hover:not(:disabled){background:var(--ink);color:var(--mist)}
+.rcar-btn:disabled{opacity:.3;cursor:default}
+.rcar-count{color:var(--muted);font-size:.9rem;letter-spacing:.06em}
+.rcar-more{margin-top:1rem;animation:rcarIn .35s ease}.rcar-more[hidden]{display:none}
+@keyframes rcarIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rcar-track,.rcar-view,#rv-open::after{transition:none}.rcar-more{animation:none}}</style><script src="cart.js?v=20261118c" defer></script><script src="reviews-config.js?v=20261118b"></script><script src="reviews.js?v=20261118c" defer></script></head>
 <body><header class="top"><nav class="wrap" aria-label="Main menu"><a class="logo" href="index.html"><img src="images/logo-sm.png" alt="" width="38" height="38">Zhardé</a><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="perfumes.html">Perfumes</a></li><li><a href="notes.html">Notes</a></li><li><a href="reviews.html" aria-current="page">Reviews</a></li></ul><button class="cartbtn" type="button" aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Cart</span><b class="cb" hidden>0</b></button></nav></header><main class="wrap reviews"><h1>Reviews</h1>
 <p class="lead">Tell us how your ZHARDÉ perfume wears: how long it lasts, how far it travels, and how much you love it. Your review appears here and on the Perfumes page right away.</p>
-<p><a class="more" href="#reviews">Read customer reviews &darr;</a></p>
-<section class="rvform" id="write"><h2>Write a review</h2><div class="orn" aria-hidden="true"><i></i></div>
+<div class="rvact"><button type="button" id="rv-open" class="btn" aria-expanded="false" aria-controls="write">Share Your Experience</button><a class="more" href="#reviews">Read customer reviews &darr;</a></div>
+<section class="rvform" id="write" hidden><h2>Share your experience</h2><div class="orn" aria-hidden="true"><i></i></div>
 <div class="rvnote" id="rv-config" hidden>Reviews are not open yet. This form will work as soon as the review service is connected.</div>
 <form id="rv-form" novalidate autocomplete="off">
 <p class="hint">Your name and comment will be shown publicly right away. A nickname is fine. Please do not include links.</p>
@@ -74,7 +94,7 @@
 <p id="rv-err" class="rverr" role="alert" hidden></p>
 <div><button class="btn" id="rv-submit" type="submit">Submit review</button></div>
 </form>
-<div id="rv-thanks" class="rvthanks" hidden><h3>Thank you!</h3><p>Your review has been sent and will appear below and on the Perfumes page.</p><a class="btn" href="#reviews">See reviews</a> <button type="button" id="rv-again" class="btn ghost">Write another review</button></div>
+<div id="rv-thanks" class="rvthanks" hidden><h3>Thank you!</h3><p>Your review has been sent and will appear below and on the Perfumes page.</p><a class="btn" href="#reviews">See reviews</a> <button type="button" id="rv-again" class="btn ghost">Share another experience</button></div>
 </section>
 <section id="reviews"><h2 class="sec">What customers say</h2><div class="orn" aria-hidden="true"><i></i></div>
 <div id="rv-summary" class="rvsum" hidden></div>

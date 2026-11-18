@@ -231,3 +231,23 @@ body:not(.home){--line:#dfd2b8;background:radial-gradient(900px 420px at 92% -60
 .rvmini{margin-top:1rem;padding:1rem 1.1rem}.rvmini .rvtext{font-size:.95rem}.rvempty a{font-weight:500}
 @media (max-width:640px){.rgrid{grid-template-columns:1fr 1fr}.rgrid>.fld:first-child{grid-column:1/-1}.rvsum{grid-template-columns:1fr;gap:1rem}.rvform{padding:1.2rem}.rvm{grid-template-columns:4.8rem 1fr 3.2rem}.pills span{width:2.1rem;height:2.1rem}}
 @media (max-width:480px){nav ul{gap:.85rem;font-size:.95rem}}
+
+/* ---- review carousel + collapsible form ---- */
+.rvact{display:flex;align-items:center;gap:.8rem 1.6rem;flex-wrap:wrap;margin:1.3rem 0 1.4rem}.rvact .more{margin:0}
+#rv-open{cursor:pointer;border:0;font:inherit;font-weight:500;letter-spacing:.05em}
+#rv-open::after{content:"";display:inline-block;width:.45em;height:.45em;margin-left:.75em;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-.18em) rotate(45deg);transition:transform .2s}
+#rv-open[aria-expanded="true"]::after{transform:translateY(.1em) rotate(-135deg)}
+.rvform[hidden]{display:none}
+.rcar{margin-top:1rem;width:100%;max-width:100%;min-width:0;contain:inline-size}
+.rcar-view{overflow:hidden;transition:height .3s ease;border-radius:10px}.rcar-view:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.rcar-track{display:flex;align-items:flex-start;transition:transform .35s ease}
+.rcar-slide{flex:0 0 100%;min-width:0}
+.rcar .rvmini{margin:0}
+.rcar-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:.8rem}
+.rcar-btn{width:2.75rem;height:2.75rem;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:1.6rem;line-height:1;padding:0 0 .15rem;cursor:pointer;font-family:var(--sans)}
+.rcar-btn:hover:not(:disabled){background:var(--ink);color:var(--mist)}
+.rcar-btn:disabled{opacity:.3;cursor:default}
+.rcar-count{color:var(--muted);font-size:.9rem;letter-spacing:.06em}
+.rcar-more{margin-top:1rem;animation:rcarIn .35s ease}.rcar-more[hidden]{display:none}
+@keyframes rcarIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rcar-track,.rcar-view,#rv-open::after{transition:none}.rcar-more{animation:none}}
