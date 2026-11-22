@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-var CFG={"variants": [{"slug": "ember", "name": "Ember"}, {"slug": "solace", "name": "Solace"}, {"slug": "azure", "name": "Azure"}, {"slug": "sovereign", "name": "Sovereign"}, {"slug": "bombshell", "name": "Bombshell"}, {"slug": "dulcette", "name": "Dulcette"}, {"slug": "elysian", "name": "Elysian"}], "sizes": ["10ml", "30ml", "100ml"]};
+var CFG={"variants": [{"slug": "ember", "name": "Ember"}, {"slug": "solace", "name": "Solace"}, {"slug": "azure", "name": "Azure"}, {"slug": "sovereign", "name": "Sovereign"}, {"slug": "bombshell", "name": "Bombshell"}, {"slug": "dulcette", "name": "Dulcette"}, {"slug": "elysian", "name": "Elysian"}, {"slug": "florea", "name": "Florea"}, {"slug": "baccarat", "name": "Baccarat"}], "sizes": ["10ml", "30ml", "100ml"]};
 var URL=String(window.ZHARDE_REVIEWS_URL||"").trim();
 var CK="zharde_reviews_v2",PAGE=8,MAXROWS=7,t0=Date.now();
 var byName={};CFG.variants.forEach(function(v){byName[v.name]=v});
