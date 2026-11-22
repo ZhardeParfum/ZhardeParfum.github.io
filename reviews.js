@@ -40,8 +40,11 @@ function card(r,onlySlug){var a=el("article","rvcard");var h=el("header","rvhead
 
 /* ---------- reviews page: list ---------- */
 var ALL=[],FILTER="",SHOWN=0;
+function rscore(r,slug){var n=0,s=0;r.items.forEach(function(i){if(!slug||i.slug===slug){n++;s+=i.overall}});return n?s/n:0}
+function byRating(rows,slug){return rows.slice().sort(function(a,b){var d=rscore(b,slug)-rscore(a,slug);if(d)return d;return(Date.parse(b.date)||0)-(Date.parse(a.date)||0)})}
+
 function renderList(){var list=$("rv-list");if(!list)return;list.textContent="";
- var rows=ALL.filter(function(r){return !FILTER||r.items.some(function(i){return i.slug===FILTER})});
+ var rows=byRating(ALL.filter(function(r){return !FILTER||r.items.some(function(i){return i.slug===FILTER})}),FILTER);
  var more=$("rv-more");SHOWN=Math.min(SHOWN||PAGE,rows.length);
  rows.slice(0,SHOWN).forEach(function(r){list.appendChild(card(r,FILTER))});
  more.hidden=SHOWN>=rows.length;
@@ -62,7 +65,7 @@ function renderPerfumes(){document.querySelectorAll(".prev[data-slug]").forEach(
  if(!s.n){var p=el("p","rvempty","No reviews yet. ");var a=el("a",null,"Be the first to review");a.href="reviews.html#write";p.appendChild(a);box.appendChild(p);box.hidden=false;return}
  var sum=el("div","prsum");sum.appendChild(el("b","rvbig2",f1(s.o)));sum.appendChild(starsEl(s.o));sum.appendChild(el("span","rvsmall",s.reviews+(s.reviews===1?" review":" reviews")));box.appendChild(sum);
  var m=el("div","rvmeters");[["Longevity",s.l],["Projection",s.p]].forEach(function(x){var r=el("div","rvm");r.appendChild(el("span","rvl",x[0]));r.appendChild(meter(x[1],x[0]));r.appendChild(el("b",null,f1(x[1])+"/10"));m.appendChild(r)});box.appendChild(m);
- var rows=ALL.filter(function(r){return r.items.some(function(i){return i.slug===slug})});
+ var rows=byRating(ALL.filter(function(r){return r.items.some(function(i){return i.slug===slug})}),slug);
  box.appendChild(carousel(rows.slice(0,CAR_MAX),slug,rows.length));box.hidden=false})}
 
 /* ---------- perfumes page: one-review carousel ---------- */
