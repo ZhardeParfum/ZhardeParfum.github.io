@@ -1,0 +1,12 @@
+REKOD PESANAN PERCUMA (Google Sheet)
+1. Buka sheets.google.com, cipta Sheet baharu bernama "ZHARDÉ Orders".
+2. Menu Extensions > Apps Script. Padam kod sedia ada, tampal seluruh kandungan orders-apps-script.gs, tekan Save.
+3. Deploy > New deployment > jenis "Web app".
+   - Execute as: Me
+   - Who has access: Anyone
+   Tekan Deploy, benarkan kebenaran (Authorize), kemudian salin "Web app URL".
+4. Dalam cart.js cari  "orders": ""  dan masukkan URL tadi, contoh  "orders": "https://script.google.com/macros/s/XXXX/exec"
+5. Upload semula cart.js. Setiap pesanan yang ditekan Check out akan masuk ke tab "Orders".
+6. Kemas kini lajur Status (Submitted, Payment Pending, Paid, Processing, Shipped, Completed, Cancelled) dan Tracking No terus dalam Sheet.
+   File > Download > CSV untuk export. Jangan kongsi Sheet kepada orang yang tidak dibenarkan.
+Nota: jumlah dikira oleh pelayar pelanggan. Sentiasa semak item dan harga dalam Sheet sebelum mengesahkan bayaran.

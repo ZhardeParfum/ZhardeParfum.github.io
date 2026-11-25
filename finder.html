@@ -4,37 +4,37 @@
 <meta property="og:title" content="Fragrance Finder"><meta property="og:description" content="Answer five questions and get up to three ZHARDÉ extrait de parfum recommendations."><meta property="og:url" content="https://zhardeparfum.github.io/finder.html"><meta property="og:type" content="website"><meta name="theme-color" content="#efe3cf"><meta property="og:image" content="https://zhardeparfum.github.io/images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="style.css?v=20261123b"><script src="cart.js?v=20261123b" defer></script></head>
-<body><header class="top"><nav class="wrap" aria-label="Main menu"><a class="logo" href="index.html" aria-label="Zhardé home"><svg class="lotus" viewBox="0 0 60 44" aria-hidden="true"><path d="M30 3C24 12 24 24 30 34C36 24 36 12 30 3Z"/><path d="M30 34C18 30 10 19 12 9C22 13 28 23 30 34Z"/><path d="M30 34C42 30 50 19 48 9C38 13 32 23 30 34Z"/><path d="M30 36C16 38 6 33 2 25C14 23 24 27 30 36Z"/><path d="M30 36C44 38 54 33 58 25C46 23 36 27 30 36Z"/></svg><span>ZHARDÉ</span></a><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="perfumes.html">Perfumes</a></li><li><a href="notes.html">Notes</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="about.html">About</a></li><li><a href="finder.html" aria-current="page">Finder</a></li><li><a href="faq.html">FAQ</a></li></ul><button class="cartbtn" type="button" aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Cart</span><b class="cb" hidden>0</b></button></nav></header>
-<main class="wrap pg"><h1>Find Your Signature Scent</h1><p class="lead">Answer five quick questions and we will suggest up to three ZHARDÉ fragrances.</p><div id="fq" class="fq"></div><div id="fr" class="fr" hidden></div>
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="style.css?v=20261124a"><script src="cart.js?v=20261124a" defer></script></head>
+<body><header class="top"><nav class="wrap" aria-label="Main menu"><a class="logo" href="index.html" aria-label="Zhardé home"><svg class="lotus" viewBox="0 0 60 44" aria-hidden="true"><path d="M30 3C24 12 24 24 30 34C36 24 36 12 30 3Z"/><path d="M30 34C18 30 10 19 12 9C22 13 28 23 30 34Z"/><path d="M30 34C42 30 50 19 48 9C38 13 32 23 30 34Z"/><path d="M30 36C16 38 6 33 2 25C14 23 24 27 30 36Z"/><path d="M30 36C44 38 54 33 58 25C46 23 36 27 30 36Z"/></svg><span>ZHARDÉ</span></a><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="perfumes.html">Perfumes</a></li><li><a href="notes.html">Notes</a></li><li><a href="learn.html">Learn</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="about.html">About</a></li><li><a href="finder.html" aria-current="page">Finder</a></li><li><a href="faq.html">FAQ</a></li></ul><button class="cartbtn" type="button" aria-label="Open cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Cart</span><b class="cb" hidden>0</b></button></nav></header>
+<main class="wrap pg"><h1>Find Your Signature Scent</h1><p class="lead">Answer five quick questions and we will suggest up to three fragrances.</p><div id="fq" class="fq"></div><div id="fr" class="fr" hidden></div>
 <script>
-var Q=[["f", "What kind of scent do you like?", [["fresh", "Fresh"], ["sweet", "Sweet"], ["woody", "Woody"], ["floral", "Floral"]]], ["o", "When will you wear it?", [["daily", "Daily"], ["office", "Office"], ["evening", "Evening"], ["special", "Special occasion"]]], ["i", "How strong should it be?", [["soft", "Soft"], ["moderate", "Moderate"], ["strong", "Strong"]]], ["c", "Which describes you best?", [["clean", "Clean"], ["elegant", "Elegant"], ["bold", "Bold"], ["romantic", "Romantic"]]], ["g", "Which category?", [["men", "Masculine"], ["women", "Feminine"], ["unisex", "Unisex / any"]]]];
-/* Fragrance profiles: edit these to change the recommendations. */
-var PR={ember:{n:"Ember",f:["sweet","woody"],o:["evening","special"],i:"strong",c:["bold"],g:"men"},
-solace:{n:"Solace",f:["fresh"],o:["daily","office"],i:"soft",c:["clean"],g:"unisex"},
-azure:{n:"Azure",f:["fresh"],o:["daily","office"],i:"moderate",c:["clean"],g:"men"},
-sovereign:{n:"Sovereign",f:["sweet"],o:["evening","special"],i:"strong",c:["elegant","bold"],g:"unisex"},
-bombshell:{n:"Bombshell",f:["floral","sweet"],o:["evening","special"],i:"moderate",c:["romantic"],g:"women"},
-dulcette:{n:"Dulcette",f:["sweet"],o:["daily","evening"],i:"moderate",c:["elegant","romantic"],g:"women"},
-elysian:{n:"Elysian",f:["fresh","woody"],o:["office","daily"],i:"moderate",c:["elegant"],g:"men"},
-florea:{n:"Florea",f:["floral","fresh"],o:["daily","office"],i:"soft",c:["romantic","clean"],g:"women"},
-baccarat:{n:"Baccarat",f:["sweet","woody"],o:["evening","special"],i:"strong",c:["bold","elegant"],g:"unisex"}};
+var Q=[["f", "What kind of scent do you like most?", [["fresh", "Fresh"], ["sweet", "Sweet"], ["floral", "Floral"], ["woody", "Woody"], ["amber", "Amber"], ["aquatic", "Aquatic"]]], ["o", "When do you usually wear perfume?", [["daily", "Daily"], ["office", "Office"], ["casual", "Casual"], ["evening", "Evening"]]], ["c", "Which character do you want to show?", [["clean", "Clean"], ["elegant", "Elegant"], ["bold", "Bold"], ["playful", "Playful"], ["mysterious", "Mysterious"]]], ["i", "How strong do you like your fragrance?", [["soft", "Soft"], ["moderate", "Moderate"], ["strong", "Strong"]]], ["m", "Do you prefer light and fresh, or warm and sweet?", [["light", "Light and fresh"], ["warm", "Warm and sweet"]]]];
+/* Fragrance profiles: edit to match the real scent profile of each fragrance. */
+var PR={ember:{n:"Ember",f:["sweet","woody","amber"],o:["evening"],i:"strong",c:["bold","mysterious"],m:"warm"},
+solace:{n:"Solace",f:["fresh"],o:["daily","office","casual"],i:"soft",c:["clean"],m:"light"},
+azure:{n:"Azure",f:["fresh","aquatic"],o:["daily","office","casual"],i:"moderate",c:["clean"],m:"light"},
+sovereign:{n:"Sovereign",f:["sweet","amber"],o:["evening"],i:"strong",c:["elegant","bold"],m:"warm"},
+bombshell:{n:"Bombshell",f:["floral","sweet"],o:["evening","casual"],i:"moderate",c:["playful"],m:"warm"},
+dulcette:{n:"Dulcette",f:["sweet"],o:["daily","casual","evening"],i:"moderate",c:["playful","elegant"],m:"warm"},
+elysian:{n:"Elysian",f:["fresh","woody"],o:["office","daily"],i:"moderate",c:["elegant"],m:"light"},
+florea:{n:"Florea",f:["floral","fresh"],o:["daily","casual","office"],i:"soft",c:["clean","playful"],m:"light"},
+baccarat:{n:"Baccarat",f:["sweet","amber","woody"],o:["evening"],i:"strong",c:["mysterious","bold","elegant"],m:"warm"}};
 var L={soft:0,moderate:1,strong:2},A={},s=0,box=document.getElementById("fq");
 function step(){if(s>=Q.length)return done();var q=Q[s];
 box.innerHTML='<p class="fs">Question '+(s+1)+' of '+Q.length+'</p><h2>'+q[1]+'</h2><div class="fo">'+q[2].map(function(o){return'<button type="button" class="btn out" data-v="'+o[0]+'">'+o[1]+'</button>'}).join("")+'</div>'+(s?'<button type="button" class="more fb">Back</button>':'');
 box.querySelector("button").focus()}
 box.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;if(b.classList.contains("fb")){s--;return step()}A[Q[s][0]]=b.dataset.v;s++;step()});
 function done(){box.hidden=true;var out=Object.keys(PR).map(function(k){var p=PR[k],sc=0,why=[];
- if(p.f.indexOf(A.f)>-1){sc+=3;why.push(A.f+" character")}
- if(p.o.indexOf(A.o)>-1){sc+=2;why.push("suits "+(A.o==="special"?"special occasions":A.o+" wear"))}
+ if(p.f.indexOf(A.f)>-1){sc+=3;why.push(A.f)}
+ if(p.c.indexOf(A.c)>-1){sc+=2;why.push(A.c)}
+ if(p.o.indexOf(A.o)>-1){sc+=2;why.push(A.o+" wear")}
  var d=Math.abs(L[p.i]-L[A.i]);if(d===0){sc+=2;why.push(p.i+" strength")}else if(d===1)sc+=1;
- if(p.c.indexOf(A.c)>-1){sc+=2;why.push(A.c+" feel")}
- if(p.g===A.g){sc+=3;why.push("made for "+(p.g==="unisex"?"everyone":p.g))}else if(p.g==="unisex")sc+=2;
+ if(p.m===A.m){sc+=2;why.push(A.m==="light"?"a light, fresh feel":"a warm, sweet feel")}
  return{k:k,p:p,sc:sc,why:why}}).sort(function(a,b){return b.sc-a.sc}).slice(0,3);
 var r=document.getElementById("fr");r.hidden=false;
-r.innerHTML='<h2>Your top matches</h2>'+out.map(function(o){return'<div class="fm"><div><h3>Zharde '+o.p.n+'</h3><p>'+(o.why.length?"Why: "+o.why.join(", ")+".":"A close overall match to your answers.")+'</p><a class="more" href="perfumes.html#'+o.k+'">View details</a></div><button type="button" class="btn zadd" data-slug="'+o.k+'" data-size="30ml">Add 30ml · RM35</button></div>'}).join("")+'<button type="button" class="btn out" id="fa">Start again</button>';
+r.innerHTML='<h2>Your top matches</h2>'+out.map(function(o){return'<div class="fm"><div><h3>Zharde '+o.p.n+'</h3><p>'+(o.why.length?"Matched because you chose "+o.why.join(", ")+".":"A close overall match to your answers.")+'</p><a class="more" href="perfumes.html#'+o.k+'">View Product</a></div><button type="button" class="btn zadd" data-slug="'+o.k+'" data-size="30ml">Add 30ml · RM35</button></div>'}).join("")+'<button type="button" class="btn out" id="fa">Start again</button>';
 document.getElementById("fa").onclick=function(){s=0;A={};r.hidden=true;box.hidden=false;step()}}
 document.addEventListener("click",function(e){var b=e.target.closest(".zadd");if(b&&window.ZCart)ZCart.add(b.dataset.slug,b.dataset.size,1)});
 step();
-</script></main><footer><div class="wrap"><p>© 2026 ZHARDÉ PARFUM. All rights reserved.</p><p class="regline">ZHARDE PARFUM SIGNATURE &middot; SSM No. 202603303467 (KT0625165-P) &middot; <a href="about.html#ssm">Business registration</a></p></div></footer>
+</script></main><footer><div class="wrap"><p class="fsoc"><a href="https://www.tiktok.com/@zharde.parfum" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/zharde2/" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/601137267911" target="_blank" rel="noopener">WhatsApp</a></p><p>© 2026 ZHARDÉ PARFUM. All rights reserved.</p><p class="regline">ZHARDE PARFUM SIGNATURE &middot; SSM No. 202603303467 (KT0625165-P) &middot; <a href="about.html#ssm">Business registration</a></p></div></footer>
 </body></html>
