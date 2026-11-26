@@ -10,3 +10,13 @@ REKOD PESANAN PERCUMA (Google Sheet)
 6. Kemas kini lajur Status (Submitted, Payment Pending, Paid, Processing, Shipped, Completed, Cancelled) dan Tracking No terus dalam Sheet.
    File > Download > CSV untuk export. Jangan kongsi Sheet kepada orang yang tidak dibenarkan.
 Nota: jumlah dikira oleh pelayar pelanggan. Sentiasa semak item dan harga dalam Sheet sebelum mengesahkan bayaran.
+
+BAHARU (v17):
+Bukti bayaran: pelanggan wajib muat naik tangkapan skrin resit sebelum WhatsApp dibuka. Gambar disimpan (peribadi) dalam folder Google Drive 'ZHARDE Payment Proofs', dan pautannya masuk ke lajur 'Payment Proof' serta mesej WhatsApp. Hanya akaun Google anda boleh membuka pautan itu.
+Penting: selepas tampal kod baharu, pilih Deploy > Manage deployments > Edit > Version: New version > Deploy, dan benarkan akses Google Drive bila diminta.
+Jika URL skrip belum diset, muat naik tidak berlaku dan pelanggan diminta melampirkan skrin dalam WhatsApp.
+
+BAHARU: Lajur 'Payment Claim' menunjukkan sama ada pelanggan menekan 'I have paid' (Customer says paid) atau 'Pending'. Sentiasa sahkan bayaran sebenar dalam akaun bank anda sebelum memproses pesanan.
+Shipping: dalam cart.js tukar  "ship": null  kepada nombor (contoh 8) jika mahu kadar tetap dimasukkan dalam jumlah bayaran.
+
+BAHARU (v18): lajur 'Delivery' di hujung Sheet menunjukkan COD atau Door Delivery (Post). Pesanan COD tiada nama dan alamat kerana terus ke WhatsApp. Selepas tampal kod baharu, Deploy > Manage deployments > Edit > New version.
