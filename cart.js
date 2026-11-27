@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-var CFG={"ship": null, "orders": "", "wa": "601137267911", "sizes": [{"v": "10ml", "p": 12}, {"v": "30ml", "p": 35}, {"v": "100ml", "p": 100}], "items": {"ember": {"name": "Ember", "color": "#e0662a"}, "solace": {"name": "Solace", "color": "#9a9488"}, "azure": {"name": "Azure", "color": "#4a8fd0"}, "sovereign": {"name": "Sovereign", "color": "#b8743a"}, "bombshell": {"name": "Bombshell", "color": "#c2457d"}, "dulcette": {"name": "Dulcette", "color": "#c96b88"}, "elysian": {"name": "Elysian", "color": "#b08a4a"}, "florea": {"name": "Florea", "color": "#d0405a"}, "baccarat": {"name": "Baccarat", "color": "#8e2b30"}, "discovery": {"name": "Discovery Set", "color": "#b8862b", "set": 1, "price": 89, "note": "9 scents × 10ml"}}};
+var CFG={"ship": null, "orders": "https://script.google.com/macros/s/AKfycbykuUSdX_7BTnXZTG7FChqt9n42rMIb3mA7xjdPf8LBJTltQVilfOYxzAUNYBm2KqJn/exec", "wa": "601137267911", "sizes": [{"v": "10ml", "p": 12}, {"v": "30ml", "p": 35}, {"v": "100ml", "p": 100}], "items": {"ember": {"name": "Ember", "color": "#e0662a"}, "solace": {"name": "Solace", "color": "#9a9488"}, "azure": {"name": "Azure", "color": "#4a8fd0"}, "sovereign": {"name": "Sovereign", "color": "#b8743a"}, "bombshell": {"name": "Bombshell", "color": "#c2457d"}, "dulcette": {"name": "Dulcette", "color": "#c96b88"}, "elysian": {"name": "Elysian", "color": "#b08a4a"}, "florea": {"name": "Florea", "color": "#d0405a"}, "baccarat": {"name": "Baccarat", "color": "#8e2b30"}, "discovery": {"name": "Discovery Set", "color": "#b8862b", "set": 1, "price": 89, "note": "9 scents × 10ml"}}};
 var KEY="zharde_cart_v1",items=CFG.items,sizes=CFG.sizes;
 var TRASH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v6M14 10v6"/></svg>';
 function price(v){for(var i=0;i<sizes.length;i++)if(sizes[i].v===v)return sizes[i].p;return 0}
@@ -86,53 +86,67 @@ function buildMsg(o,paid){var k=o.k,v=o.v,ship=typeof CFG.ship==="number",cod=o.
  return (paid?"Hai ZHARDÉ, saya telah membuat pembayaran melalui DuitNow QR.":"Hai ZHARDÉ, saya ingin membuat pesanan.")+"\nOrder No: "+o.no+"\nKaedah: Door Delivery (Post)\nNama: "+v.n+"\nTelefon: "+v.p+"\nAlamat: "+v.a+", "+v.z+" "+v.c+", "+v.s+"\n\nItem:\n"+lines+
   "\n\nSubtotal: RM"+k.sub+(k.d?"\nBuy "+k.bq+" saving: -RM"+k.d:"")+"\nShipping: "+(ship?"RM"+CFG.ship:"akan disahkan semasa pengesahan pesanan")+
   "\n"+(ship?"Jumlah":"Total (belum termasuk penghantaran)")+": RM"+payTotal(o)+(v.t?"\nNota: "+v.t:"")+
-  "\n\n"+(paid?(o.proofUrl?"Bukti pembayaran: "+o.proofUrl:"Resit pembayaran saya lampirkan dalam chat ini."):"Mohon pengesahan pesanan dan kaedah pembayaran.")+" Terima kasih."}
-function payload(o,paid,proof){var v=o.v;return{orderNo:o.no,name:v.n,phone:v.p,address:v.a,city:v.c,state:v.s,postcode:v.z,note:v.t,items:o.its,subtotal:o.k.sub,discount:o.k.d,shipping:o.method==="cod"?"-":(typeof CFG.ship==="number"?CFG.ship:"TBC"),total:payTotal(o),payment:o.method==="cod"?"COD (pay on delivery)":(paid?"Customer says paid":"Pending"),method:o.method==="cod"?"COD":"Door Delivery (Post)",proof:proof||null}}
-function record(o,paid){if(!(CFG.orders&&window.fetch))return;try{fetch(CFG.orders,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload(o,paid,null))}).catch(function(){})}catch(e){}}
-function uploadOrder(o){if(!(CFG.orders&&window.fetch&&o.proofData))return Promise.resolve("");return fetch(CFG.orders,{method:"POST",body:JSON.stringify(payload(o,true,o.proofData))}).then(function(r){return r.json()}).then(function(j){return j&&j.ok&&j.proofUrl?j.proofUrl:""})}
-function compress(file){return new Promise(function(res,rej){var fr=new FileReader();fr.onerror=rej;fr.onload=function(){var img=new Image();img.onerror=rej;img.onload=function(){var s=Math.min(1,1280/Math.max(img.width,img.height)),cv=document.createElement("canvas");cv.width=Math.round(img.width*s);cv.height=Math.round(img.height*s);cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);var u=cv.toDataURL("image/jpeg",.82);res({mime:"image/jpeg",data:u.split(",")[1],url:u})};img.src=fr.result};fr.readAsDataURL(file)})}
+  "\n\n"+(paid?"Bukti pembayaran saya lampirkan dalam chat ini.":"Mohon pengesahan pesanan dan kaedah pembayaran.")+" Terima kasih."}
+function payload(o,paid,receipt){var v=o.v;return{orderNo:o.no,name:v.n,phone:v.p,address:v.a,city:v.c,state:v.s,postcode:v.z,note:v.t,items:o.its,subtotal:o.k.sub,discount:o.k.d,shipping:o.method==="cod"?"-":(typeof CFG.ship==="number"?CFG.ship:"TBC"),total:payTotal(o),payment:o.method==="cod"?"COD":(paid?"Customer says paid":"Pending"),method:o.method==="cod"?"COD":"Door Delivery (Post)",receipt:receipt||null}}
+function stamp(o){return o.date||(o.date=new Date().toLocaleString("en-MY",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}))}
+function statusText(o,paid){return o.method==="cod"?"Order ready · COD to be confirmed":(paid?"Payment claimed · awaiting verification":"Awaiting payment")}
+function makeReceipt(o,paid){try{
+ var S=1.5,W=520,P=28,k=o.k,v=o.v,cod=o.method==="cod",ship=typeof CFG.ship==="number",tot=payTotal(o),SERIF='"Cormorant Garamond",Georgia,serif',SANS='Jost,Arial,sans-serif',INK="#1a1209",MUTE="#6e5a5d",GOLD="#8f6a2e";
+ function run(c,draw){var y=P;
+  function T(t,x,yy,f,col,al){if(!draw)return;c.font=f;c.fillStyle=col;c.textAlign=al||"left";c.fillText(t,x,yy)}
+  function wrap(t,f,mw){c.font=f;var w=String(t).split(" "),ln="",out=[];w.forEach(function(x){var q=ln?ln+" "+x:x;if(c.measureText(q).width>mw&&ln){out.push(ln);ln=x}else ln=q});if(ln)out.push(ln);return out}
+  function rule(yy){if(!draw)return;c.strokeStyle="#cdbda5";c.lineWidth=1;c.beginPath();c.moveTo(P,yy);c.lineTo(W-P,yy);c.stroke()}
+  y+=12;T("ZHARDÉ PARFUM",P,y,"500 13px "+SANS,GOLD);
+  y+=38;T("Order Receipt",P,y,"500 36px "+SERIF,INK);
+  y+=30;T("Order No  "+o.no,P,y,"500 16px "+SANS,INK);
+  y+=22;T(stamp(o),P,y,"300 14px "+SANS,MUTE);
+  y+=28;T("● "+statusText(o,paid),P,y,"500 14px "+SANS,cod||paid?"#1b6b3a":"#8a5a00");
+  y+=18;rule(y);
+  y+=24;T(cod?"DELIVERY":"DELIVER TO",P,y,"500 11px "+SANS,MUTE);
+  var info=cod?["Cash on Delivery (COD)","Shah Alam & nearby areas only"]:[v.n+" · "+v.p].concat(wrap(v.a+", "+v.z+" "+v.c+", "+v.s,"400 15px "+SANS,W-2*P),v.t?wrap("Note: "+v.t,"italic 400 14px "+SANS,W-2*P):[]);
+  info.forEach(function(t,n){y+=22;T(t,P,y,(n&&v.t&&t.indexOf("Note:")===0?"italic 400 14px ":"400 15px ")+SANS,INK)});
+  y+=18;rule(y);
+  o.its.forEach(function(x){y+=28;T(x.name,P,y,"500 16px "+SANS,INK);T("RM"+x.amount,W-P,y,"600 16px "+SANS,INK,"right");y+=19;T(x.size+" × "+x.qty,P,y,"300 13px "+SANS,MUTE);y+=10;rule(y)});
+  y+=26;T("Subtotal",P,y,"400 15px "+SANS,INK);T("RM"+k.sub,W-P,y,"400 15px "+SANS,INK,"right");
+  if(k.d){y+=24;T("Buy "+k.bq+" saving",P,y,"400 15px "+SANS,INK);T("−RM"+k.d,W-P,y,"400 15px "+SANS,INK,"right")}
+  if(!cod){y+=24;T("Shipping",P,y,"400 15px "+SANS,INK);T(ship?"RM"+CFG.ship:"To be confirmed",W-P,y,"400 15px "+SANS,INK,"right")}
+  y+=14;rule(y);
+  y+=36;T(cod||ship?"Total":"Total (excl. shipping)",P,y,"500 24px "+SERIF,INK);T("RM"+tot,W-P,y,"500 28px "+SERIF,INK,"right");
+  y+=30;T(cod?"Payment: to be arranged with ZHARDÉ on WhatsApp":"Payment: DuitNow QR · ZHARDE PARFUM SIGNATURE",P,y,"300 13px "+SANS,MUTE);
+  return y+P}
+ var m=document.createElement("canvas").getContext("2d"),H=run(m,false);
+ var cv=document.createElement("canvas");cv.width=W*S;cv.height=H*S;var c=cv.getContext("2d");c.scale(S,S);c.fillStyle="#f8f3e8";c.fillRect(0,0,W,H);run(c,true);
+ return{mime:"image/jpeg",data:cv.toDataURL("image/jpeg",.82).split(",")[1]}}catch(e){return null}}
+function record(o,paid){if(!(CFG.orders&&window.fetch))return;stamp(o);
+ try{fetch(CFG.orders,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload(o,paid,null))}).catch(function(){})}catch(e){}
+ var r=makeReceipt(o,paid);if(r)try{fetch(CFG.orders,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload(o,paid,r))}).catch(function(){})}catch(e){}}
 function openWA(o,paid){var a=document.createElement("a");a.href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent(buildMsg(o,paid));a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove()}
 function sendWA(o,paid){record(o,paid);openWA(o,paid);showReceipt(o,paid)}
 function who(o,label){var v=o.v;if(o.method==="cod")return '<div class="zpb1"><p class="zpl">Delivery</p><p>Cash on Delivery (COD)<br>Shah Alam &amp; nearby areas only</p></div>';return '<div class="zpb1"><p class="zpl">'+label+'</p><p>'+esc2(v.n)+" · "+esc2(v.p)+"<br>"+esc2(v.a)+", "+esc2(v.z)+" "+esc2(v.c)+", "+esc2(v.s)+(v.t?"<br><i>Note: "+esc2(v.t)+"</i>":"")+'</p></div>'}
-function showReceipt(o,paid){if(!payEl)return;var k=o.k,v=o.v,ship=typeof CFG.ship==="number",tot=payTotal(o);
- var when=o.date||(o.date=new Date().toLocaleString("en-MY",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}));
+function showReceipt(o,paid){if(!payEl)return;var k=o.k,ship=typeof CFG.ship==="number",tot=payTotal(o),cod=o.method==="cod";
  payEl.querySelector(".zpp").innerHTML='<div class="zph"><h2>Order Receipt</h2><button type="button" class="zpx" aria-label="Close">&times;</button></div>'+
- '<p class="zrb">ZHARDÉ PARFUM</p><p class="zpn">Order No <b>'+esc2(o.no)+'</b><br>'+esc2(when)+'</p>'+
- '<p class="zst2 '+(paid||o.method==="cod"?"zv":"zw")+'">'+(o.method==="cod"?"Order sent · COD to be confirmed":(paid?(o.proofUrl?"Receipt uploaded · awaiting verification":"Payment claimed · awaiting verification"):"Awaiting payment"))+'</p>'+
- who(o,"Customer")+
+ '<p class="zrb">ZHARDÉ PARFUM</p><p class="zpn">Order No <b>'+esc2(o.no)+'</b><br>'+esc2(stamp(o))+'</p>'+
+ '<p class="zst2 '+(paid||cod?"zv":"zw")+'">'+statusText(o,paid)+'</p>'+who(o,"Customer")+
  '<ul class="zpi">'+o.its.map(function(x){return"<li><span>"+esc2(x.name)+"<small>"+esc2(x.size)+" × "+x.qty+"</small></span><b>RM"+x.amount+"</b></li>"}).join("")+'</ul>'+
- '<div class="zpt"><p><span>Subtotal</span><span>RM'+k.sub+'</span></p>'+(k.d?'<p><span>Buy '+k.bq+' saving</span><span>−RM'+k.d+'</span></p>':'')+(o.method==="cod"?'':'<p><span>Shipping</span><span>'+(ship?"RM"+CFG.ship:"To be confirmed")+'</span></p>')+'<p class="zpg"><span>'+(o.method==="cod"||ship?"Total":"Total (excl. shipping)")+'</span><span>RM'+tot+'</span></p></div>'+
- '<p class="zpf zpm">'+(o.method==="cod"?"Payment: to be arranged with ZHARDÉ on WhatsApp":"Payment method: DuitNow QR · Payee: ZHARDE PARFUM SIGNATURE")+'</p>'+
- (paid&&o.proofThumb?'<img class="zthumb" src="'+o.proofThumb+'" alt="Your payment receipt">':'')+'<p class="zpf">'+(o.method==="cod"?"Your order is confirmed after ZHARDÉ replies on WhatsApp with the COD place and time.":"Your order is confirmed only after ZHARDÉ verifies your payment. "+(paid?(o.proofUrl?"Your receipt was uploaded and its link is in your WhatsApp message.":(o.proofFail?"We could not upload your receipt automatically. Please attach the screenshot in the WhatsApp chat.":"Please attach your receipt screenshot in the WhatsApp chat.")):"Please send your payment receipt on WhatsApp after paying."))+'</p>'+
- '<div class="zno"><button type="button" class="zprint">Print / Save as PDF</button><button type="button" class="zagain">Open WhatsApp</button><button type="button" class="zlater zdone">Close</button></div>';
+ '<div class="zpt"><p><span>Subtotal</span><span>RM'+k.sub+'</span></p>'+(k.d?'<p><span>Buy '+k.bq+' saving</span><span>−RM'+k.d+'</span></p>':'')+(cod?'':'<p><span>Shipping</span><span>'+(ship?"RM"+CFG.ship:"To be confirmed")+'</span></p>')+'<p class="zpg"><span>'+(cod||ship?"Total":"Total (excl. shipping)")+'</span><span>RM'+tot+'</span></p></div>'+
+ '<p class="zpf zpm">'+(cod?"Payment: to be arranged with ZHARDÉ on WhatsApp":"Payment method: DuitNow QR · Payee: ZHARDE PARFUM SIGNATURE")+'</p>'+
+ '<p class="zpf">'+(cod?"Tap Send in WhatsApp to complete your order. ZHARDÉ will reply with the COD place and time.":"Tap Send in WhatsApp to complete your order, and attach your payment screenshot in the chat. Your order is confirmed after ZHARDÉ verifies your payment.")+'</p>'+
+ '<div class="zno"><button type="button" class="zagain">Open WhatsApp</button><button type="button" class="zlater zdone">Close</button></div>';
  payEl.querySelector(".zpx").addEventListener("click",closePay);
  payEl.querySelector(".zdone").addEventListener("click",closePay);
- payEl.querySelector(".zprint").addEventListener("click",function(){window.print()});
- payEl.querySelector(".zagain").addEventListener("click",function(){var a=document.createElement("a");a.href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent(buildMsg(o,paid));a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove()});
+ payEl.querySelector(".zagain").addEventListener("click",function(){openWA(o,paid)});
  payEl.scrollTop=0;payEl.querySelector(".zpx").focus()}
-function showPay(o){closePay();var k=o.k,v=o.v,ship=typeof CFG.ship==="number",tot=payTotal(o);
- payEl=document.createElement("div");payEl.className="zpay";payEl.setAttribute("role","dialog");payEl.setAttribute("aria-modal","true");payEl.setAttribute("aria-label","Order summary and payment");
- payEl.innerHTML='<div class="zpp"><div class="zph"><h2>Order Summary</h2><button type="button" class="zpx" aria-label="Close">&times;</button></div>'+
- '<p class="zpn">Order No <b>'+esc2(o.no)+'</b></p>'+
- who(o,"Deliver to")+
+function showPay(o){var k=o.k,ship=typeof CFG.ship==="number",tot=payTotal(o);
+ openModal('<div class="zph"><h2>Order Summary</h2><button type="button" class="zpx" aria-label="Close">&times;</button></div>'+
+ '<p class="zpn">Order No <b>'+esc2(o.no)+'</b></p>'+who(o,"Deliver to")+
  '<ul class="zpi">'+o.its.map(function(x){return"<li><span>"+esc2(x.name)+"<small>"+esc2(x.size)+" × "+x.qty+"</small></span><b>RM"+x.amount+"</b></li>"}).join("")+'</ul>'+
  '<div class="zpt"><p><span>Subtotal</span><span>RM'+k.sub+'</span></p>'+(k.d?'<p><span>Buy '+k.bq+' saving</span><span>−RM'+k.d+'</span></p>':'')+'<p><span>Shipping</span><span>'+(ship?"RM"+CFG.ship:"Confirmed on WhatsApp")+'</span></p><p class="zpg"><span>'+(ship?"Total to pay":"Total (excl. shipping)")+'</span><span>RM'+tot+'</span></p></div>'+
- '<h3>Pay with DuitNow QR</h3><ol class="zps"><li>Scan the QR with your banking or e-wallet app.</li><li>Pay <b>RM'+tot+'</b> and use <b>'+esc2(o.no)+'</b> as the reference.</li><li>Take a screenshot of your payment receipt.</li><li>Upload it below, then tap the green button. Your order and receipt open in WhatsApp.</li></ol>'+
+ '<h3>Pay with DuitNow QR</h3><ol class="zps"><li>Scan the QR with your banking or e-wallet app.</li><li>Pay <b>RM'+tot+'</b> and use <b>'+esc2(o.no)+'</b> as the reference.</li><li>Tap the green button to send your order on WhatsApp.</li><li>Attach your payment screenshot in the WhatsApp chat.</li></ol>'+
  '<img class="zqr" src="images/duitnow-qr.png" alt="DuitNow QR for ZHARDE PARFUM SIGNATURE" width="320">'+
  '<a class="zdl" href="images/duitnow-qr.png" download="ZHARDE-DuitNow-QR.png">Save QR image</a>'+
- '<div class="zproof"><label class="zlab">Upload payment receipt (screenshot)<input type="file" class="zfile" accept="image/*"></label><img class="zthumb" alt="Your receipt preview" hidden><p class="zup" role="status" hidden></p></div><button type="button" class="zpaid" disabled>Send order + receipt on WhatsApp</button><button type="button" class="zlater">Pay later · confirm order on WhatsApp</button>'+
- (ship?'':'<p class="zpf">Shipping is confirmed by ZHARDÉ on WhatsApp.</p>')+'</div>';
- document.body.appendChild(payEl);document.body.style.overflow="hidden";
- payEl.querySelector(".zpx").addEventListener("click",closePay);
- payEl.addEventListener("click",function(e){if(e.target===payEl)closePay()});
- var fi=payEl.querySelector(".zfile"),th=payEl.querySelector(".zthumb"),pb=payEl.querySelector(".zpaid"),up=payEl.querySelector(".zup");
- fi.addEventListener("change",function(){var f=fi.files&&fi.files[0];o.proofData=null;pb.disabled=true;th.hidden=true;up.hidden=true;if(!f)return;
-  if(!/^image\//.test(f.type)){up.textContent="Please choose an image (a screenshot or photo of your receipt).";up.hidden=false;return}
-  if(f.size>15*1048576){up.textContent="This image is too large. Please choose one under 15 MB.";up.hidden=false;return}
-  up.textContent="Reading image…";up.hidden=false;
-  compress(f).then(function(cc){o.proofData=cc;o.proofThumb=cc.url;th.src=cc.url;th.hidden=false;up.hidden=true;pb.disabled=false}).catch(function(){up.textContent="Could not read this image. Please try another screenshot.";up.hidden=false})});
- pb.addEventListener("click",function(){if(!o.proofData)return;pb.disabled=true;fi.disabled=true;up.hidden=false;up.textContent=CFG.orders?"Uploading your receipt…":"Preparing your order…";
-  uploadOrder(o).then(function(u){o.proofUrl=u;o.proofFail=!!CFG.orders&&!u}).catch(function(){o.proofUrl="";o.proofFail=true}).then(function(){if(!CFG.orders)record(o,true);openWA(o,true);showReceipt(o,true)})});
+ '<button type="button" class="zpaid">I have paid · send order on WhatsApp</button><button type="button" class="zlater">Pay later · send order on WhatsApp</button>'+
+ (ship?'':'<p class="zpf">Shipping is confirmed by ZHARDÉ on WhatsApp.</p>'),"Order summary and payment");
+ payEl.querySelector(".zpaid").addEventListener("click",function(){sendWA(o,true)});
  payEl.querySelector(".zlater").addEventListener("click",function(){sendWA(o,false)});
  payEl.querySelector(".zpx").focus()}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closePay()});
